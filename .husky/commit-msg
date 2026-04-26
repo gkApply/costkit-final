@@ -1,0 +1,7 @@
+#!/bin/sh
+msg=$(cat "$1" | head -1)
+if ! echo "$msg" | grep -qE "^(feat|fix|chore|docs|style|refactor|test|perf|ci)(\(.+\))?: .+"; then
+  echo "Commit message must follow Conventional Commits: type(scope?): description"
+  echo "Examples: feat(hero): add animation  |  fix(auth): session refresh  |  chore: bump deps"
+  exit 1
+fi

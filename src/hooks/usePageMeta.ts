@@ -9,9 +9,7 @@ export function usePageMeta({ title, description }: PageMeta) {
   useEffect(() => {
     document.title = title
 
-    let metaDescription = document.querySelector<HTMLMetaElement>(
-      'meta[name="description"]',
-    )
+    let metaDescription = document.querySelector<HTMLMetaElement>('meta[name="description"]')
 
     if (!metaDescription) {
       metaDescription = document.createElement('meta')
