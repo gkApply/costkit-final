@@ -5,8 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
+    "build": "tsc && vite build",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --max-warnings 0",
+    "format": "prettier --write src",
+    "format:check": "prettier --check src",
+    "test:e2e": "playwright test",
+    "reset": "rimraf node_modules dist .vercel && npm install",
     "preview": "vite preview"
   },
   "dependencies": {
