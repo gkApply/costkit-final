@@ -1,0 +1,5 @@
+@"
+docs/
+node_modules/
+dist/
+"@ | Out-File -FilePath .eslintignore -Encoding utf8
