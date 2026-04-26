@@ -13,7 +13,7 @@ function Navbar() {
         borderColor: 'color-mix(in oklab, var(--color-brand-200) 28%, transparent)',
       }}
     >
-      <div className="mx-auto flex max-w-[1380px] items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-10">
+      <div className="mx-auto flex max-w-[1380px] items-center justify-between gap-4 px-4 py-6 sm:px-6 lg:px-10">
         <div className="flex min-w-0 w-full items-center gap-6 lg:w-auto lg:gap-16">
           <Link
             to="/financial-tools"
@@ -33,7 +33,7 @@ function Navbar() {
                 <Link
                   key={item.href}
                   to={item.href}
-                  className={`border-b-2 pb-2 text-[16px] font-semibold whitespace-nowrap transition-all ${
+                  className={`border-b-2 pb-2 text-[16px] font-bold whitespace-nowrap transition-all ${
                     isActive
                       ? 'border-brand-500 text-brand-500'
                       : 'border-transparent text-neutral-700 opacity-60 hover:opacity-100'
