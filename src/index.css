@@ -64,17 +64,17 @@
 
 @theme {
   /* ── BRAND COLOURS ─────────────────────────────────────────── */
-  --color-brand-50: #caffba;
-  --color-brand-100: #adf59c;
-  --color-brand-200: #92d883;
-  --color-brand-300: #77bc6a;
-  --color-brand-400: #5da052;
-  --color-brand-500: #2a6b24;
-  --color-brand-600: #1d611a;
-  --color-brand-700: #0e530d;
-  --color-brand-800: #003a03;
-  --color-brand-900: #002201;
-  --color-brand-950: #000000;
+  --color-brand-50:  #E8F5E8;
+  --color-brand-100: #C8E6C8;
+  --color-brand-200: #A5D4A5;
+  --color-brand-300: #7DBF7D;
+  --color-brand-400: #52A052;
+  --color-brand-500: #0D520D;
+  --color-brand-600: #0A4A0A;
+  --color-brand-700: #083D08;
+  --color-brand-800: #052E05;
+  --color-brand-900: #031F03;
+  --color-brand-950: #011001;
 
   /* ── SECONDARY COLOURS ─────────────────────────────────────── */
   --color-secondary-50: #ffefd6;
@@ -103,8 +103,8 @@
   --color-tertiary-950: #000000;
 
   /* ── NEUTRAL (stone family) ────────────────────────────────── */
-  --color-neutral-50: #f7f6f3;
-  --color-neutral-100: #f2f1ee;
+  --color-neutral-50:  #FAF9F6;   /* THEME.background */
+  --color-neutral-100: #F4F3F0;   /* THEME.surface */
   --color-neutral-200: #e3e2df;
   --color-neutral-300: #c7c6c4;
   --color-neutral-400: #ababa9;
