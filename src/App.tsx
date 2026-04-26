@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { AppLayout } from '@/components/layout/AppLayout'
 import { AuthLayout } from '@/components/layout/AuthLayout'
-import { PublicLayout } from '@/components/layout/PublicLayout'
+import PublicLayout from '@/components/layout/PublicLayout'
 import { ScrollToTop } from '@/components/layout/ScrollToTop'
 import AboutPage from '@/pages/AboutPage'
 import AcceptableUsePage from '@/pages/AcceptableUsePage'
