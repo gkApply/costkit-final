@@ -1,7 +1,8 @@
+import LegalPageLayout from '@/components/layout/LegalPageLayout'
+import termsContent from '../../docs/Legal/terms.md?raw'
+
 export default function TermsPage() {
   return (
-    <div className="p-8">
-      <h1>TermsPage</h1>
-    </div>
+    <LegalPageLayout title="Terms of Service" lastUpdated="2024-01-01" markdown={termsContent} />
   )
 }

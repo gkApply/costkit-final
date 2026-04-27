@@ -3,6 +3,7 @@ import { AppLayout } from '@/components/layout/AppLayout'
 import { AuthLayout } from '@/components/layout/AuthLayout'
 import PublicLayout from '@/components/layout/PublicLayout'
 import { ScrollToTop } from '@/components/layout/ScrollToTop'
+import CookieConsent from '@/components/shared/CookieConsent'
 import AboutPage from '@/pages/AboutPage'
 import AcceptableUsePage from '@/pages/AcceptableUsePage'
 import AccountPage from '@/pages/AccountPage'
@@ -123,6 +124,7 @@ function App() {
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      <CookieConsent />
     </BrowserRouter>
   )
 }
