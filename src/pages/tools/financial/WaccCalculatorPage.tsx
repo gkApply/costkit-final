@@ -6,8 +6,9 @@ import { site } from '@/config/site'
 
 const THEME = {
   primarySoft: 'var(--color-brand-400)',
-  text: 'var(--color-neutral-950)',
-  textMuted: 'var(--color-neutral-600)',
+  text: 'var(--color-neutral-800)',
+  textMuted: 'var(--color-neutral-700)',
+  textSubtle: 'var(--color-neutral-500)',
   surface: 'var(--color-neutral-100)',
   surfaceAlt: 'var(--color-neutral-200)',
   card: '#ffffff',
@@ -187,7 +188,7 @@ function LabeledField({
         ) : null}
       </div>
       {hint ? (
-        <div className="mt-3 text-sm leading-6" style={{ color: THEME.textMuted }}>
+        <div className="mt-3 text-sm leading-6" style={{ color: THEME.textSubtle }}>
           {hint}
         </div>
       ) : null}
@@ -238,7 +239,7 @@ function ReferenceSelect({
         </select>
       </div>
       {note ? (
-        <div className="mt-3 text-sm leading-6" style={{ color: THEME.textMuted }}>
+        <div className="mt-3 text-sm leading-6" style={{ color: THEME.textSubtle }}>
           {note}
         </div>
       ) : null}
@@ -323,7 +324,7 @@ function SimpleTable({
         boxShadow: THEME.shadow,
       }}
     >
-      <div className="min-w-[600px]">
+      <div className="min-w-[560px]">
         <div
           className="grid"
           style={{ gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))` }}
@@ -584,7 +585,7 @@ export default function WaccCalculatorPage() {
           </section>
 
           <div className="flex gap-6 items-start">
-            <div className="w-48 shrink-0">
+            <div className="w-56 shrink-0">
               <div
                 className="rounded-[30px] p-4 lg:sticky lg:top-28"
                 style={{ background: THEME.surface }}
@@ -610,7 +611,7 @@ export default function WaccCalculatorPage() {
                       className="w-full cursor-pointer rounded-2xl px-4 py-3 text-left text-sm transition-all"
                       style={{
                         background: section === item.id ? THEME.card : 'transparent',
-                        color: section === item.id ? THEME.primary : THEME.textMuted,
+                        color: section === item.id ? THEME.primary : 'var(--color-neutral-800)',
                         boxShadow: section === item.id ? THEME.shadow : 'none',
                         fontWeight: section === item.id ? 700 : 500,
                       }}

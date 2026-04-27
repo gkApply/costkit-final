@@ -36,7 +36,7 @@ function Navbar() {
                   className={`border-b-2 pb-2 text-[16px] font-bold whitespace-nowrap transition-all ${
                     isActive
                       ? 'border-brand-500 text-brand-500'
-                      : 'border-transparent text-neutral-700 opacity-60 hover:opacity-100'
+                      : 'border-transparent text-neutral-800 opacity-60 hover:opacity-100'
                   }`}
                 >
                   {item.label}
@@ -49,7 +49,7 @@ function Navbar() {
         <div className="flex items-center gap-2 sm:gap-3">
           <Link
             to={site.nav.login.href}
-            className="px-3 py-2 text-sm font-semibold text-neutral-700 transition-colors hover:text-neutral-900"
+            className="px-3 py-2 text-sm font-semibold text-neutral-800 transition-colors hover:text-neutral-900"
           >
             {site.nav.login.label}
           </Link>

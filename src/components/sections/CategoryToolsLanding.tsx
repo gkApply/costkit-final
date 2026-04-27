@@ -144,19 +144,19 @@ export function CategoryToolsLanding({
 
             <div
               className="text-[11px] tracking-[0.2em] uppercase"
-              style={{ color: THEME.secondary }}
+              style={{ color: 'var(--color-neutral-900)' }}
             >
               {tool.categoryName}
             </div>
             <h3
               className="mt-3 text-[22px] leading-tight font-semibold sm:text-[24px]"
-              style={{ color: THEME.secondary }}
+              style={{ color: '#7A694A' }}
             >
               {tool.title}
             </h3>
             <p
               className="mt-3 min-h-[52px] text-[14px] leading-6"
-              style={{ color: THEME.textMuted }}
+              style={{ color: 'var(--color-neutral-900)' }}
             >
               {tool.description}
             </p>
