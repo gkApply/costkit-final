@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority'
 
-export const navLinkVariants = cva('border-b-2 pb-2 text-sm font-semibold transition-colors', {
+export const navLinkVariants = cva('border-b-2 pb-2 text-lg font-semibold transition-colors', {
   variants: {
     active: {
       true: 'border-brand-500 text-brand-500',

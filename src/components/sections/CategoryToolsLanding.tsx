@@ -1,6 +1,7 @@
 import { Calculator } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { badgeVariants, cardVariants, pillVariants } from '@/components/ui/variants'
 import { content } from '@/config/content'
 import { getSubcategories, getToolsByCategory, type Tool } from '@/config/tools'
 
@@ -21,8 +22,6 @@ const THEME = {
   primary: 'var(--color-brand-500)',
   secondary: 'var(--color-secondary-500)',
 } as const
-
-const ACTIVE_PILL = 'linear-gradient(135deg, #0D520D 0%, #2A6B24 100%)' as const
 
 type ToolWithCategoryName = Tool & { categoryName: string }
 
@@ -50,10 +49,7 @@ export function CategoryToolsLanding({
   return (
     <div className="space-y-8 md:space-y-10">
       <section className="max-w-4xl">
-        <div
-          className="mb-3 text-[11px] tracking-[0.26em] uppercase"
-          style={{ color: THEME.primarySoft }}
-        >
+        <div className="mb-3 text-xs tracking-wider uppercase" style={{ color: THEME.primarySoft }}>
           {header.badge}
         </div>
         <h1
@@ -69,7 +65,7 @@ export function CategoryToolsLanding({
           {header.subheading}
         </p>
         <div
-          className="mt-7 inline-flex flex-wrap gap-2.5 rounded-[22px] px-3 py-3 sm:gap-3 sm:rounded-[28px] sm:px-5 sm:py-4"
+          className="mt-7 inline-flex flex-wrap gap-2.5 rounded-2xl px-3 py-3 sm:gap-3 sm:px-5 sm:py-4"
           style={{ background: THEME.surface }}
         >
           <button
@@ -77,11 +73,7 @@ export function CategoryToolsLanding({
             onClick={() => {
               setCategoryId('all')
             }}
-            className="cursor-pointer rounded-full px-4 py-2.5 text-sm font-medium sm:px-5 sm:py-3"
-            style={{
-              background: categoryId === 'all' ? ACTIVE_PILL : THEME.surfaceAlt,
-              color: categoryId === 'all' ? '#FFFFFF' : THEME.text,
-            }}
+            className={pillVariants({ active: categoryId === 'all' })}
           >
             All tools
           </button>
@@ -92,11 +84,7 @@ export function CategoryToolsLanding({
               onClick={() => {
                 setCategoryId(name)
               }}
-              className="cursor-pointer rounded-full px-4 py-2.5 text-sm font-medium sm:px-5 sm:py-3"
-              style={{
-                background: categoryId === name ? ACTIVE_PILL : THEME.surfaceAlt,
-                color: categoryId === name ? '#FFFFFF' : THEME.text,
-              }}
+              className={pillVariants({ active: categoryId === name })}
             >
               {name}
             </button>
@@ -112,7 +100,7 @@ export function CategoryToolsLanding({
             onClick={() => {
               navigate(tool.href)
             }}
-            className="bg-white rounded-[20px] px-5 py-4 text-left shadow-md transition-all duration-200 hover:-translate-y-1 sm:rounded-[24px] sm:px-6 sm:py-5"
+            className={`${cardVariants()} rounded-xl`}
             style={{
               border:
                 tool.tier !== 'free'
@@ -128,12 +116,11 @@ export function CategoryToolsLanding({
                 <Calculator size={17} style={{ color: THEME.primary }} />
               </div>
               <span
-                className="rounded-full px-1 py-0.5 font-bold uppercase"
+                className={badgeVariants({ tier: tool.tier })}
                 style={{
                   background:
                     tool.tier !== 'free' ? 'rgba(197, 160, 89, 0.22)' : 'rgba(92, 236, 96, 0.18)',
                   color: tool.tier !== 'free' ? THEME.secondary : THEME.primary,
-                  fontSize: '0.65rem',
                   letterSpacing: '0.06em',
                   lineHeight: 1.05,
                 }}
@@ -143,25 +130,22 @@ export function CategoryToolsLanding({
             </div>
 
             <div
-              className="text-[11px] tracking-[0.2em] uppercase"
+              className="text-xs tracking-wider uppercase"
               style={{ color: 'var(--color-neutral-900)' }}
             >
               {tool.categoryName}
             </div>
             <h3
-              className="mt-3 text-[22px] leading-tight font-semibold sm:text-[24px]"
+              className="mt-3 text-xl leading-tight font-semibold sm:text-2xl"
               style={{ color: '#7A694A' }}
             >
               {tool.title}
             </h3>
-            <p
-              className="mt-3 min-h-[52px] text-[14px] leading-6"
-              style={{ color: 'var(--color-neutral-900)' }}
-            >
+            <p className="mt-3 text-sm leading-6" style={{ color: 'var(--color-neutral-900)' }}>
               {tool.description}
             </p>
             <div className="mt-5 h-px w-full" style={{ background: 'rgba(122, 105, 74, 0.12)' }} />
-            <div className="mt-5 text-[13px] italic" style={{ color: THEME.primary }}>
+            <div className="mt-5 text-sm italic" style={{ color: THEME.primary }}>
               {content.tool.openToolLabel}
             </div>
           </button>

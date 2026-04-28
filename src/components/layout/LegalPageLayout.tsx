@@ -1,4 +1,5 @@
 import ReactMarkdown from 'react-markdown'
+import PageContainer from '@/components/layout/PageContainer'
 
 type LegalPageLayoutProps = {
   title: string
@@ -8,7 +9,7 @@ type LegalPageLayoutProps = {
 
 export default function LegalPageLayout({ title, lastUpdated, markdown }: LegalPageLayoutProps) {
   return (
-    <div className="mx-auto max-w-[1380px] px-4 py-8 sm:px-6 md:py-10 lg:px-10 lg:py-12">
+    <PageContainer className="py-8 md:py-10 lg:py-12">
       <div className="space-y-8 sm:space-y-10">
         <header className="max-w-3xl space-y-3">
           <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-500">
@@ -71,6 +72,6 @@ export default function LegalPageLayout({ title, lastUpdated, markdown }: LegalP
           </ReactMarkdown>
         </article>
       </div>
-    </div>
+    </PageContainer>
   )
 }

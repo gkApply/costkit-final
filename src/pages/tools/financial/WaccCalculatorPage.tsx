@@ -2,6 +2,7 @@ import { type ChangeEvent, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 import { Calendar } from '@/components/ui/calendar'
+import PageContainer from '@/components/layout/PageContainer'
 import { site } from '@/config/site'
 
 const THEME = {
@@ -559,7 +560,7 @@ export default function WaccCalculatorPage() {
 
   return (
     <div className="font-sans">
-      <div className="mx-auto max-w-[1380px] px-4 sm:px-6 lg:px-10">
+      <PageContainer>
         <div className="space-y-6 sm:space-y-8">
           <section>
             <Link
@@ -1025,7 +1026,7 @@ export default function WaccCalculatorPage() {
             </div>
           </div>
         </div>
-      </div>
+      </PageContainer>
     </div>
   )
 }

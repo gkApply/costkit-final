@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { CheckCircle2, ChevronDown, ChevronUp } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import PageContainer from '@/components/layout/PageContainer'
 import { pricing, type PricingPlan } from '@/config/pricing'
 import { usePageMeta } from '@/hooks/usePageMeta'
 import { site } from '@/config/site'
@@ -60,7 +61,7 @@ export default function PricingPage() {
   usePageMeta({ title: meta.title, description: meta.description })
 
   return (
-    <div className="mx-auto max-w-[1380px] space-y-10 px-4 py-8 sm:px-6 md:space-y-12 md:py-10 lg:px-10 lg:py-12">
+    <PageContainer className="space-y-10 py-8 md:space-y-12 md:py-10 lg:py-12">
       <section className="max-w-3xl">
         <div
           className="text-[11px] uppercase tracking-[0.26em] mb-3"
@@ -233,6 +234,6 @@ export default function PricingPage() {
           )
         })}
       </section>
-    </div>
+    </PageContainer>
   )
 }

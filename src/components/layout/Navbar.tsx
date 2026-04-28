@@ -1,5 +1,8 @@
 import { Link, useLocation } from 'react-router-dom'
+import PageContainer from '@/components/layout/PageContainer'
+import { navLinkVariants } from '@/components/ui/variants'
 import { site } from '@/config/site'
+import { cn } from '@/lib/utils'
 
 function Navbar() {
   const { pathname } = useLocation()
@@ -13,17 +16,22 @@ function Navbar() {
         borderColor: 'color-mix(in oklab, var(--color-brand-200) 28%, transparent)',
       }}
     >
-      <div className="mx-auto flex max-w-[1380px] items-center justify-between gap-4 px-4 py-6 sm:px-6 lg:px-10">
-        <div className="flex min-w-0 w-full items-center gap-6 lg:w-auto lg:gap-16">
-          <Link
-            to="/financial-tools"
-            className="font-display text-4xl font-semibold whitespace-nowrap lg:text-[42px]"
-            style={{ color: 'var(--color-brand-500)' }}
-          >
-            CostKit
-          </Link>
+      <PageContainer>
+        <div className="relative flex h-20 items-center gap-4">
+          <div className="shrink-0">
+            <Link
+              to="/financial-tools"
+              className="whitespace-nowrap font-display text-3xl font-semibold lg:text-4xl"
+              style={{ color: 'var(--color-brand-500)' }}
+            >
+              CostKit
+            </Link>
+          </div>
 
-          <nav className="flex min-w-0 flex-1 items-center gap-5 overflow-x-auto pb-1 sm:gap-6 lg:gap-9">
+          <nav
+            aria-label="Primary"
+            className="flex-1 flex justify-center items-center gap-5 lg:gap-7 hidden md:flex"
+          >
             {site.nav.links.map((item) => {
               const isActive =
                 pathname === item.href ||
@@ -33,34 +41,41 @@ function Navbar() {
                 <Link
                   key={item.href}
                   to={item.href}
-                  className={`border-b-2 pb-2 text-[16px] font-bold whitespace-nowrap transition-all ${
-                    isActive
-                      ? 'border-brand-500 text-brand-500'
-                      : 'border-transparent text-neutral-800 opacity-60 hover:opacity-100'
-                  }`}
+                  className={cn(navLinkVariants({ active: isActive }), 'whitespace-nowrap')}
+                  aria-current={isActive ? 'page' : undefined}
                 >
                   {item.label}
                 </Link>
               )
             })}
           </nav>
-        </div>
 
-        <div className="flex items-center gap-2 sm:gap-3">
-          <Link
-            to={site.nav.login.href}
-            className="px-3 py-2 text-sm font-semibold text-neutral-800 transition-colors hover:text-neutral-900"
-          >
-            {site.nav.login.label}
-          </Link>
-          <Link
-            to={site.nav.cta.href}
-            className="rounded-xl bg-brand-500 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-600"
-          >
-            {site.nav.cta.label}
-          </Link>
+          <div className="flex shrink-0 items-center gap-3">
+            <div className="hidden items-center gap-3 md:flex">
+              <Link
+                to={site.nav.login.href}
+                className="inline-flex h-10 items-center whitespace-nowrap px-4 text-sm font-semibold text-neutral-800 transition-colors hover:text-neutral-900"
+              >
+                {site.nav.login.label}
+              </Link>
+              <Link
+                to={site.nav.cta.href}
+                className="inline-flex h-10 items-center whitespace-nowrap rounded-xl bg-brand-500 px-4 text-sm font-semibold text-white transition-colors hover:bg-brand-600"
+              >
+                {site.nav.cta.label}
+              </Link>
+            </div>
+
+            <button
+              type="button"
+              aria-label="Open menu"
+              className="inline-flex size-11 items-center justify-center rounded-xl border border-neutral-300 text-neutral-800 md:hidden"
+            >
+              Menu
+            </button>
+          </div>
         </div>
-      </div>
+      </PageContainer>
     </header>
   )
 }

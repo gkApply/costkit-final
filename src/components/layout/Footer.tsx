@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import PageContainer from '@/components/layout/PageContainer'
 import { content } from '@/config/content'
 
 const legalLinks = content.footer.columns.find((column) => column.heading === 'Legal')?.links ?? []
@@ -9,7 +10,7 @@ function Footer() {
       className="border-t border-neutral-300"
       style={{ backgroundColor: 'color-mix(in oklab, var(--color-neutral-50) 88%, white)' }}
     >
-      <div className="mx-auto max-w-[1380px] px-4 py-8 sm:px-6 lg:px-10">
+      <PageContainer className="py-8">
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
           <div className="flex flex-col items-center gap-1 sm:flex-row sm:items-baseline sm:gap-3">
             <p className="font-display text-xl text-brand-600">CostKit</p>
@@ -39,7 +40,7 @@ function Footer() {
             ))}
           </nav>
         </div>
-      </div>
+      </PageContainer>
     </footer>
   )
 }
