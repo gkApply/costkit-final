@@ -63,14 +63,11 @@ export default function PricingPage() {
   return (
     <PageContainer className="space-y-10 py-8 md:space-y-12 md:py-10 lg:py-12">
       <section className="max-w-3xl">
-        <div
-          className="text-[11px] uppercase tracking-[0.26em] mb-3"
-          style={{ color: THEME.primarySoft }}
-        >
+        <div className="mb-3 text-xs uppercase tracking-wider" style={{ color: THEME.primarySoft }}>
           Pricing
         </div>
         <h1
-          className="font-['Source_Serif_4'] text-3xl sm:text-4xl md:text-5xl leading-tight"
+          className="font-display text-3xl leading-tight sm:text-4xl md:text-5xl"
           style={{ color: THEME.text }}
         >
           Simple pricing for serious valuation work.
@@ -121,7 +118,7 @@ export default function PricingPage() {
           return (
             <div
               key={plan.id}
-              className="rounded-[20px] sm:rounded-[22px] p-4 sm:p-5 border transition-all duration-200 hover:-translate-y-1"
+              className="rounded-2xl border p-4 sm:p-5 transition-all duration-200 hover:-translate-y-1"
               style={{
                 background: accent
                   ? 'linear-gradient(145deg, #0D520D 0%, #2A6B24 100%)'
@@ -133,7 +130,7 @@ export default function PricingPage() {
             >
               <div className="mb-4 flex items-center justify-between gap-3">
                 <span
-                  className="rounded-full px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.16em]"
+                  className="rounded-full px-2.5 py-1 text-xs font-bold uppercase tracking-wide"
                   style={{
                     background: accent ? 'rgba(255,255,255,0.16)' : THEME.surface,
                     color: accent ? '#FFFFFF' : THEME.primary,
@@ -142,13 +139,11 @@ export default function PricingPage() {
                   {badge}
                 </span>
               </div>
-              <h2 className="font-['Source_Serif_4'] text-[24px] font-bold sm:text-[28px]">
-                {plan.name}
-              </h2>
+              <h2 className="font-display text-xl font-bold sm:text-2xl">{plan.name}</h2>
               <div className="mt-4 flex items-end gap-2">
-                <div className="font-mono text-[42px]">{`$${price}`}</div>
+                <div className="font-mono text-4xl">{`$${price}`}</div>
                 <span
-                  className="mb-1 text-[13px]"
+                  className="mb-1 text-sm"
                   style={{ color: accent ? 'rgba(255,255,255,0.78)' : THEME.textMuted }}
                 >
                   /month
@@ -209,7 +204,7 @@ export default function PricingPage() {
               {plan.tier === 'free' ? (
                 <Link
                   to={plan.cta.href}
-                  className="block w-full cursor-pointer rounded-xl px-4 py-3 text-center text-[13px] font-semibold transition hover:opacity-90"
+                  className="block w-full cursor-pointer rounded-xl px-4 py-3 text-center text-sm font-semibold transition hover:opacity-90"
                   style={{
                     background: THEME.surfaceAlt,
                     color: THEME.text,
@@ -220,7 +215,7 @@ export default function PricingPage() {
               ) : (
                 <button
                   type="button"
-                  className="w-full cursor-pointer rounded-xl px-4 py-3 text-[13px] font-semibold transition hover:opacity-90"
+                  className="w-full cursor-pointer rounded-xl px-4 py-3 text-sm font-semibold transition hover:opacity-90"
                   style={{
                     background: accent ? '#FFFFFF' : THEME.surfaceAlt,
                     color: accent ? THEME.primary : THEME.text,

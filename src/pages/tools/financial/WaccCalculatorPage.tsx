@@ -165,13 +165,13 @@ function LabeledField({
   return (
     <label className="block">
       <div
-        className="text-[12px] font-bold tracking-[0.26em] uppercase"
+        className="text-xs font-bold tracking-wider uppercase"
         style={{ color: THEME.secondary }}
       >
         {label}
       </div>
       <div
-        className="mt-4 flex min-h-[76px] items-center gap-3 rounded-[26px] border px-6 py-5"
+        className="mt-4 flex items-center gap-3 rounded-2xl border px-4 py-3 sm:px-5 sm:py-4"
         style={{ background: THEME.surfaceAlt, borderColor: 'transparent' }}
       >
         <input
@@ -179,7 +179,7 @@ function LabeledField({
           value={value}
           step={step}
           onChange={onChange}
-          className="w-full bg-transparent text-[18px] font-medium outline-none md:text-[19px]"
+          className="w-full bg-transparent text-lg font-medium outline-none md:text-lg"
           style={{ color: THEME.text }}
         />
         {suffix ? (
@@ -215,13 +215,13 @@ function ReferenceSelect({
   return (
     <div className={className}>
       <div
-        className="text-[12px] font-bold tracking-[0.24em] uppercase"
+        className="text-xs font-bold tracking-wider uppercase"
         style={{ color: THEME.secondary }}
       >
         {label}
       </div>
       <div
-        className="mt-4 flex min-h-[76px] items-center rounded-[26px] border px-6 py-5"
+        className="mt-4 flex items-center rounded-2xl border px-4 py-3 sm:px-5 sm:py-4"
         style={{ background: THEME.surfaceAlt, borderColor: 'transparent' }}
       >
         <select
@@ -229,7 +229,7 @@ function ReferenceSelect({
           onChange={(event) => {
             onChange(event.target.value)
           }}
-          className="w-full cursor-pointer bg-transparent pr-8 text-[18px] font-medium leading-tight outline-none md:text-[19px]"
+          className="w-full cursor-pointer bg-transparent pr-8 text-lg font-medium leading-tight outline-none md:text-lg"
           style={{ color: THEME.text }}
         >
           {options.map((option) => (
@@ -269,7 +269,7 @@ function DatePickerField({
   return (
     <div className="relative">
       <div
-        className="text-[12px] font-bold tracking-[0.26em] uppercase"
+        className="text-xs font-bold tracking-wider uppercase"
         style={{ color: THEME.secondary }}
       >
         {label}
@@ -279,14 +279,14 @@ function DatePickerField({
         onClick={() => {
           setOpen((current) => !current)
         }}
-        className="mt-4 w-full min-h-[64px] rounded-[20px] border px-4 py-4 text-left text-[16px] font-medium sm:min-h-[76px] sm:rounded-[26px] sm:px-6 sm:py-5 sm:text-[18px] md:text-[19px]"
+        className="mt-4 w-full rounded-xl border px-4 py-3 text-left text-base font-medium sm:rounded-2xl sm:px-5 sm:py-4 sm:text-lg md:text-lg"
         style={{ background: THEME.surfaceAlt, borderColor: 'transparent', color: THEME.text }}
       >
         <span>{dateLabel}</span>
       </button>
       {open ? (
         <div
-          className="absolute top-[calc(100%+8px)] left-0 z-30 w-[min(92vw,360px)] rounded-[16px] border p-2 shadow-xl sm:rounded-[20px] sm:p-3"
+          className="absolute top-[calc(100%+8px)] left-0 z-30 w-[min(92vw,360px)] rounded-xl border p-2 shadow-xl sm:rounded-xl sm:p-3"
           style={{ background: '#FFFFFF', borderColor: THEME.border }}
         >
           <Calendar
@@ -318,7 +318,7 @@ function SimpleTable({
 }) {
   return (
     <div
-      className="mt-8 overflow-x-auto rounded-[20px] sm:rounded-[28px]"
+      className="mt-8 overflow-x-auto rounded-xl sm:rounded-2xl"
       style={{
         background: THEME.card,
         border: `1px solid ${THEME.border}`,
@@ -333,7 +333,7 @@ function SimpleTable({
           {columns.map((column, index) => (
             <div
               key={column}
-              className={`px-6 ${compact ? 'py-4' : 'py-5'} text-[12px] font-bold tracking-[0.18em] uppercase`}
+              className={`px-6 ${compact ? 'py-4' : 'py-5'} text-xs font-bold tracking-wide uppercase`}
               style={{
                 color:
                   index === columns.length - 1 && emphasizeLastColumn
@@ -358,7 +358,7 @@ function SimpleTable({
             {row.map((cell, cellIndex) => (
               <div
                 key={`${rowIndex}-${cellIndex}`}
-                className={`px-6 ${compact ? 'py-4' : 'py-5'} text-[15px] leading-7`}
+                className={`px-6 ${compact ? 'py-4' : 'py-5'} text-sm leading-7`}
                 style={{
                   color:
                     cellIndex === columns.length - 1 && emphasizeLastColumn
@@ -424,7 +424,7 @@ function CompanyRiskChecklist({
       </div>
       {mode === 'single' ? (
         <div
-          className="mt-6 rounded-[28px] p-6"
+          className="mt-6 rounded-2xl p-6"
           style={{ background: THEME.card, boxShadow: THEME.shadow }}
         >
           <LabeledField
@@ -439,7 +439,7 @@ function CompanyRiskChecklist({
         </div>
       ) : (
         <div
-          className="mt-6 overflow-hidden rounded-[28px]"
+          className="mt-6 overflow-hidden rounded-2xl"
           style={{ border: '1px solid rgba(29,64,114,0.10)', background: '#FFFFFF' }}
         >
           {CSR_FACTORS.map((factor, index) => (
@@ -453,10 +453,10 @@ function CompanyRiskChecklist({
               }}
             >
               <div>
-                <div className="text-[17px] font-semibold" style={{ color: '#24324A' }}>
+                <div className="text-base font-semibold" style={{ color: '#24324A' }}>
                   {factor.title}
                 </div>
-                <div className="mt-2 text-[14px]" style={{ color: '#78859E' }}>
+                <div className="mt-2 text-sm" style={{ color: '#78859E' }}>
                   {factor.helper} Max: {factor.max.toFixed(2)}%
                 </div>
               </div>
@@ -472,7 +472,7 @@ function CompanyRiskChecklist({
                   }}
                   className="w-full cursor-pointer accent-teal-600"
                 />
-                <div className="text-right text-[18px] font-semibold" style={{ color: '#2E4A76' }}>
+                <div className="text-right text-lg font-semibold" style={{ color: '#2E4A76' }}>
                   {formatPercent(factorValues[factor.id] ?? 0)}
                 </div>
               </div>
@@ -482,10 +482,10 @@ function CompanyRiskChecklist({
             className="flex items-center justify-between px-5 py-4"
             style={{ background: '#D8EAEA', borderTop: '3px solid #278A84' }}
           >
-            <div className="text-[16px] font-semibold" style={{ color: '#278A84' }}>
+            <div className="text-base font-semibold" style={{ color: '#278A84' }}>
               Total company-specific risk premium (alpha)
             </div>
-            <div className="text-[19px] font-bold" style={{ color: '#278A84' }}>
+            <div className="text-lg font-bold" style={{ color: '#278A84' }}>
               {formatPercent(total)}
             </div>
           </div>
@@ -559,7 +559,7 @@ export default function WaccCalculatorPage() {
   const waccPageTitle = site.meta['/financial-tools/wacc-calculator'].title
 
   return (
-    <div className="font-sans">
+    <div className="font-sans pt-8">
       <PageContainer>
         <div className="space-y-6 sm:space-y-8">
           <section>
@@ -572,7 +572,7 @@ export default function WaccCalculatorPage() {
               Back to Financial Tools
             </Link>
             <div
-              className="mb-3 text-[11px] tracking-[0.26em] uppercase"
+              className="mb-3 text-xs tracking-wider uppercase"
               style={{ color: THEME.primarySoft }}
             >
               Financial Tools / Cost of Capital / WACC Calculator
@@ -588,12 +588,12 @@ export default function WaccCalculatorPage() {
           <div className="flex gap-6 items-start">
             <div className="w-56 shrink-0">
               <div
-                className="rounded-[30px] p-4 lg:sticky lg:top-28"
+                className="rounded-2xl p-4 lg:sticky lg:top-24"
                 style={{ background: THEME.surface }}
               >
                 <div className="px-3 pt-2 pb-4">
                   <div
-                    className="mb-2 text-[10px] tracking-[0.22em] uppercase"
+                    className="mb-2 text-xs tracking-wider uppercase"
                     style={{ color: THEME.primarySoft }}
                   >
                     Valuation Engine v2.4
@@ -626,14 +626,14 @@ export default function WaccCalculatorPage() {
 
             <div className="flex-1 min-w-0">
               <section
-                className="rounded-[24px] p-5 sm:rounded-[32px] sm:p-8"
+                className="rounded-2xl p-5 sm:rounded-3xl sm:p-8"
                 style={{ background: THEME.card, boxShadow: THEME.shadow }}
               >
                 {section === 'intro' && (
                   <div className="space-y-8">
                     <div>
                       <div
-                        className="mb-3 text-[11px] tracking-[0.24em] uppercase"
+                        className="mb-3 text-xs tracking-wider uppercase"
                         style={{ color: THEME.primarySoft }}
                       >
                         Input Assumptions
@@ -933,28 +933,26 @@ export default function WaccCalculatorPage() {
                 )}
                 {section === 'results' && (
                   <div className="grid gap-5 sm:gap-6 md:grid-cols-2">
-                    <div className="rounded-[28px] p-6" style={{ background: THEME.surfaceAlt }}>
+                    <div className="rounded-2xl p-6" style={{ background: THEME.surfaceAlt }}>
                       <div
-                        className="mb-3 text-[11px] tracking-[0.22em] uppercase"
+                        className="mb-3 text-xs tracking-wider uppercase"
                         style={{ color: THEME.secondary }}
                       >
                         Cost of Equity
                       </div>
-                      <div className="text-[36px] font-semibold" style={{ color: THEME.secondary }}>
+                      <div className="text-4xl font-semibold" style={{ color: THEME.secondary }}>
                         {formatPercent(derived.costOfEquity)}
                       </div>
                     </div>
                     <div
-                      className="rounded-[28px] p-6"
+                      className="rounded-2xl p-6"
                       style={{
                         background: 'linear-gradient(135deg, #0D520D 0%, #2A6B24 100%)',
                         color: '#FFFFFF',
                       }}
                     >
-                      <div className="mb-3 text-[11px] tracking-[0.22em] uppercase">
-                        Derived WACC
-                      </div>
-                      <div className="text-[36px] font-semibold">{formatPercent(derived.wacc)}</div>
+                      <div className="mb-3 text-xs tracking-wider uppercase">Derived WACC</div>
+                      <div className="text-4xl font-semibold">{formatPercent(derived.wacc)}</div>
                     </div>
                   </div>
                 )}
@@ -963,11 +961,11 @@ export default function WaccCalculatorPage() {
 
             <div className="w-72 shrink-0">
               <div
-                className="rounded-[24px] p-5 sm:rounded-[30px] sm:p-7 lg:sticky lg:top-28"
+                className="rounded-2xl p-5 sm:rounded-2xl sm:p-7 lg:sticky lg:top-24"
                 style={{ background: THEME.surfaceAlt }}
               >
                 <div
-                  className="mb-6 text-[11px] tracking-[0.24em] uppercase"
+                  className="mb-6 text-xs tracking-wider uppercase"
                   style={{ color: THEME.primary }}
                 >
                   Live Ledger Summary
@@ -1013,7 +1011,7 @@ export default function WaccCalculatorPage() {
                       {formatPercent(derived.weightEquity * 100, 1)}
                     </span>
                   </div>
-                  <div className="rounded-[26px] p-6" style={{ background: THEME.card }}>
+                  <div className="rounded-2xl p-6" style={{ background: THEME.card }}>
                     <div
                       className="font-mono text-5xl font-semibold tracking-tight"
                       style={{ color: THEME.primary }}
