@@ -4,11 +4,13 @@ import { AuthLayout } from '@/components/layout/AuthLayout'
 import PublicLayout from '@/components/layout/PublicLayout'
 import { ScrollToTop } from '@/components/layout/ScrollToTop'
 import CookieConsent from '@/components/shared/CookieConsent'
+import { AuthProvider } from '@/contexts/AuthContext'
 import AboutPage from '@/pages/AboutPage'
 import AcceptableUsePage from '@/pages/AcceptableUsePage'
 import AccountPage from '@/pages/AccountPage'
 import BillingPage from '@/pages/BillingPage'
 import ClassificationPage from '@/pages/ClassificationPage'
+import DashboardPage from '@/pages/DashboardPage'
 import FinancialToolsPage from '@/pages/FinancialToolsPage'
 import ForgotPasswordPage from '@/pages/ForgotPasswordPage'
 import IndustryPage from '@/pages/IndustryPage'
@@ -57,75 +59,87 @@ import SalaryByRolePage from '@/pages/tools/salary/SalaryByRolePage'
 
 function App() {
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <Routes>
-        <Route element={<PublicLayout />}>
-          <Route path="/" element={<FinancialToolsPage />} />
-          <Route path="/financial-tools" element={<FinancialToolsPage />} />
-          <Route path="/financial-tools/wacc-calculator" element={<WaccCalculatorPage />} />
-          <Route path="/financial-tools/cost-of-equity" element={<CostOfEquityPage />} />
-          <Route
-            path="/financial-tools/beta-unlever-relever"
-            element={<BetaUnleverReleverPage />}
-          />
-          <Route path="/financial-tools/currency-converter" element={<CurrencyConverterPage />} />
-          <Route path="/financial-tools/life-tables" element={<LifeTablesPage />} />
-          <Route path="/financial-tools/tax-tables" element={<TaxTablesPage />} />
-          <Route path="/financial-tools/dcf-calculator" element={<DcfCalculatorPage />} />
-          <Route path="/financial-tools/terminal-value" element={<TerminalValuePage />} />
-          <Route path="/industry" element={<IndustryPage />} />
-          <Route path="/industry/industry-metrics" element={<IndustryMetricsPage />} />
-          <Route path="/industry/ratio-benchmarks" element={<RatioBenchmarksPage />} />
-          <Route path="/industry/historical-trends" element={<HistoricalTrendsPage />} />
-          <Route path="/industry/credit-spreads" element={<CreditSpreadsPage />} />
-          <Route path="/industry/industry-risk-premium" element={<IndustryRiskPremiumPage />} />
-          <Route path="/macro" element={<MacroPage />} />
-          <Route path="/macro/us-risk-free-rate" element={<UsRiskFreeRatePage />} />
-          <Route path="/macro/canada-risk-free-rate" element={<CanadaRiskFreeRatePage />} />
-          <Route path="/macro/country-ratings" element={<CountryRatingsPage />} />
-          <Route path="/macro/cpi" element={<CpiPage />} />
-          <Route path="/macro/gdp-growth" element={<GdpGrowthPage />} />
-          <Route path="/macro/fx-volatility" element={<FxVolatilityPage />} />
-          <Route path="/classification" element={<ClassificationPage />} />
-          <Route path="/classification/company-description" element={<CompanyDescriptionPage />} />
-          <Route path="/classification/naics-codes" element={<NaicsCodesPage />} />
-          <Route path="/classification/sic-codes" element={<SicCodesPage />} />
-          <Route path="/classification/sic-naics-converter" element={<SicNaicsConverterPage />} />
-          <Route path="/classification/gics-sectors" element={<GicsSectorsPage />} />
-          <Route path="/salary" element={<SalaryPage />} />
-          <Route path="/salary/salary-by-role" element={<SalaryByRolePage />} />
-          <Route path="/salary/salary-by-industry" element={<SalaryByIndustryPage />} />
-          <Route path="/salary/executive-compensation" element={<ExecutiveCompensationPage />} />
-          <Route path="/salary/reasonable-compensation" element={<ReasonableCompensationPage />} />
-          <Route path="/other-tools" element={<OtherToolsPage />} />
-          <Route path="/other-tools/monte-carlo-simulator" element={<MonteCarloSimulatorPage />} />
-          <Route path="/other-tools/sensitivity-analysis" element={<SensitivityAnalysisPage />} />
-          <Route path="/other-tools/report-builder" element={<ReportBuilderPage />} />
-          <Route path="/pricing" element={<PricingPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/terms" element={<TermsPage />} />
-          <Route path="/privacy" element={<PrivacyPage />} />
-          <Route path="/refund-policy" element={<RefundPolicyPage />} />
-          <Route path="/acceptable-use" element={<AcceptableUsePage />} />
-        </Route>
+    <AuthProvider>
+      <BrowserRouter>
+        <ScrollToTop />
+        <Routes>
+          <Route element={<PublicLayout />}>
+            <Route path="/" element={<FinancialToolsPage />} />
+            <Route path="/financial-tools" element={<FinancialToolsPage />} />
+            <Route path="/financial-tools/wacc-calculator" element={<WaccCalculatorPage />} />
+            <Route path="/financial-tools/cost-of-equity" element={<CostOfEquityPage />} />
+            <Route
+              path="/financial-tools/beta-unlever-relever"
+              element={<BetaUnleverReleverPage />}
+            />
+            <Route path="/financial-tools/currency-converter" element={<CurrencyConverterPage />} />
+            <Route path="/financial-tools/life-tables" element={<LifeTablesPage />} />
+            <Route path="/financial-tools/tax-tables" element={<TaxTablesPage />} />
+            <Route path="/financial-tools/dcf-calculator" element={<DcfCalculatorPage />} />
+            <Route path="/financial-tools/terminal-value" element={<TerminalValuePage />} />
+            <Route path="/industry" element={<IndustryPage />} />
+            <Route path="/industry/industry-metrics" element={<IndustryMetricsPage />} />
+            <Route path="/industry/ratio-benchmarks" element={<RatioBenchmarksPage />} />
+            <Route path="/industry/historical-trends" element={<HistoricalTrendsPage />} />
+            <Route path="/industry/credit-spreads" element={<CreditSpreadsPage />} />
+            <Route path="/industry/industry-risk-premium" element={<IndustryRiskPremiumPage />} />
+            <Route path="/macro" element={<MacroPage />} />
+            <Route path="/macro/us-risk-free-rate" element={<UsRiskFreeRatePage />} />
+            <Route path="/macro/canada-risk-free-rate" element={<CanadaRiskFreeRatePage />} />
+            <Route path="/macro/country-ratings" element={<CountryRatingsPage />} />
+            <Route path="/macro/cpi" element={<CpiPage />} />
+            <Route path="/macro/gdp-growth" element={<GdpGrowthPage />} />
+            <Route path="/macro/fx-volatility" element={<FxVolatilityPage />} />
+            <Route path="/classification" element={<ClassificationPage />} />
+            <Route
+              path="/classification/company-description"
+              element={<CompanyDescriptionPage />}
+            />
+            <Route path="/classification/naics-codes" element={<NaicsCodesPage />} />
+            <Route path="/classification/sic-codes" element={<SicCodesPage />} />
+            <Route path="/classification/sic-naics-converter" element={<SicNaicsConverterPage />} />
+            <Route path="/classification/gics-sectors" element={<GicsSectorsPage />} />
+            <Route path="/salary" element={<SalaryPage />} />
+            <Route path="/salary/salary-by-role" element={<SalaryByRolePage />} />
+            <Route path="/salary/salary-by-industry" element={<SalaryByIndustryPage />} />
+            <Route path="/salary/executive-compensation" element={<ExecutiveCompensationPage />} />
+            <Route
+              path="/salary/reasonable-compensation"
+              element={<ReasonableCompensationPage />}
+            />
+            <Route path="/other-tools" element={<OtherToolsPage />} />
+            <Route
+              path="/other-tools/monte-carlo-simulator"
+              element={<MonteCarloSimulatorPage />}
+            />
+            <Route path="/other-tools/sensitivity-analysis" element={<SensitivityAnalysisPage />} />
+            <Route path="/other-tools/report-builder" element={<ReportBuilderPage />} />
+            <Route path="/pricing" element={<PricingPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/terms" element={<TermsPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="/refund-policy" element={<RefundPolicyPage />} />
+            <Route path="/acceptable-use" element={<AcceptableUsePage />} />
+          </Route>
 
-        <Route element={<AuthLayout />}>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="/reset-password" element={<ResetPasswordPage />} />
-        </Route>
+          <Route element={<AuthLayout />}>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
+          </Route>
 
-        <Route element={<AppLayout />}>
-          <Route path="/account" element={<AccountPage />} />
-          <Route path="/billing" element={<BillingPage />} />
-        </Route>
+          <Route element={<AppLayout />}>
+            <Route path="/account" element={<AccountPage />} />
+            <Route path="/billing" element={<BillingPage />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
+          </Route>
 
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-      <CookieConsent />
-    </BrowserRouter>
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+        <CookieConsent />
+      </BrowserRouter>
+    </AuthProvider>
   )
 }
 

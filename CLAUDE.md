@@ -228,26 +228,26 @@ Every table has RLS enabled from creation. No exceptions. The `handle_new_user` 
 > Never put actual values here. This is the map of what exists and where it's used.
 > Actual values live in `.env` (local, gitignored) and Vercel environment variables (production).
 
-| Variable                      | Used in                                    | When added |
-| ----------------------------- | ------------------------------------------ | ---------- |
-| `VITE_SUPABASE_URL`           | `src/config/env.ts`, `src/lib/supabase.ts` | Phase 6    |
-| `VITE_SUPABASE_ANON_KEY`      | `src/config/env.ts`, `src/lib/supabase.ts` | Phase 6    |
-| `SUPABASE_SERVICE_ROLE_KEY`   | API routes only (server-side)              | Phase 6    |
-| `ANTHROPIC_API_KEY`           | `api/generate.ts`                          | Phase 7A   |
-| `UPSTASH_REDIS_REST_URL`      | `src/lib/ratelimit.ts`                     | Phase 7A   |
-| `UPSTASH_REDIS_REST_TOKEN`    | `src/lib/ratelimit.ts`                     | Phase 7A   |
-| `VITE_STRIPE_PUBLISHABLE_KEY` | `src/lib/stripe.ts` (client-side)          | Phase 7B   |
-| `STRIPE_SECRET_KEY`           | API routes                                 | Phase 7B   |
-| `STRIPE_WEBHOOK_SECRET`       | `api/webhook.ts`                           | Phase 7B   |
-| `STRIPE_PRICE_ID_PRO_MONTHLY` | `api/create-checkout.ts`                   | Phase 7B   |
-| `STRIPE_PRICE_ID_PRO_ANNUAL`  | `api/create-checkout.ts`                   | Phase 7B   |
-| `RESEND_API_KEY`              | `src/lib/email.ts`                         | Phase 7C   |
-| `EMAIL_FROM`                  | `src/lib/email.ts`                         | Phase 7C   |
-| `VITE_SENTRY_DSN`             | `src/lib/sentry.ts`                        | Phase 7D   |
-| `SENTRY_AUTH_TOKEN`           | `vite.config.ts` (source maps upload)      | Phase 7D   |
-| `VITE_POSTHOG_KEY`            | `src/lib/analytics.ts`                     | Phase 7D   |
-| `VITE_POSTHOG_HOST`           | `src/lib/analytics.ts`                     | Phase 7D   |
-| `VITE_APP_VERSION`            | `src/lib/sentry.ts`                        | Phase 7D   |
+| Variable                        | Used in                                    | When added |
+| ------------------------------- | ------------------------------------------ | ---------- |
+| `VITE_SUPABASE_URL`             | `src/config/env.ts`, `src/lib/supabase.ts` | Phase 6    |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | `src/config/env.ts`, `src/lib/supabase.ts` | Phase 6    |
+| `SUPABASE_SECRET_KEY`           | API routes only (server-side)              | Phase 6    |
+| `ANTHROPIC_API_KEY`             | `api/generate.ts`                          | Phase 7A   |
+| `UPSTASH_REDIS_REST_URL`        | `src/lib/ratelimit.ts`                     | Phase 7A   |
+| `UPSTASH_REDIS_REST_TOKEN`      | `src/lib/ratelimit.ts`                     | Phase 7A   |
+| `VITE_STRIPE_PUBLISHABLE_KEY`   | `src/lib/stripe.ts` (client-side)          | Phase 7B   |
+| `STRIPE_SECRET_KEY`             | API routes                                 | Phase 7B   |
+| `STRIPE_WEBHOOK_SECRET`         | `api/webhook.ts`                           | Phase 7B   |
+| `STRIPE_PRICE_ID_PRO_MONTHLY`   | `api/create-checkout.ts`                   | Phase 7B   |
+| `STRIPE_PRICE_ID_PRO_ANNUAL`    | `api/create-checkout.ts`                   | Phase 7B   |
+| `RESEND_API_KEY`                | `src/lib/email.ts`                         | Phase 7C   |
+| `EMAIL_FROM`                    | `src/lib/email.ts`                         | Phase 7C   |
+| `VITE_SENTRY_DSN`               | `src/lib/sentry.ts`                        | Phase 7D   |
+| `SENTRY_AUTH_TOKEN`             | `vite.config.ts` (source maps upload)      | Phase 7D   |
+| `VITE_POSTHOG_KEY`              | `src/lib/analytics.ts`                     | Phase 7D   |
+| `VITE_POSTHOG_HOST`             | `src/lib/analytics.ts`                     | Phase 7D   |
+| `VITE_APP_VERSION`              | `src/lib/sentry.ts`                        | Phase 7D   |
 
 ---
 

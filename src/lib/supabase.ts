@@ -1,4 +1,27 @@
-import { createClient } from '@supabase/supabase-js'
-import { env } from '@/config/env'
+/// <reference types="vite/client" />
 
-export const supabase = createClient(env.supabaseUrl, env.supabaseAnonKey)
+import { createClient } from '@supabase/supabase-js'
+import type { Database } from '../types/database'
+
+export const supabase = createClient<Database>(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+)
+
+export async function getProfile(userId: string) {
+  const { data, error } = await supabase.from('profiles').select('*').eq('id', userId).single()
+
+  if (error) {
+    throw error
+  }
+
+  return data
+}
+
+export type SubscriptionStatus =
+  | 'free'
+  | 'trialing'
+  | 'active'
+  | 'past_due'
+  | 'canceled'
+  | 'incomplete'
