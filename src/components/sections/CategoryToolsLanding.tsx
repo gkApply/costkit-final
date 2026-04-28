@@ -53,7 +53,7 @@ export function CategoryToolsLanding({
           {header.badge}
         </div>
         <h1
-          className="font-display text-3xl leading-tight sm:text-4xl md:text-5xl"
+          className="font-display text-xl leading-tight md:text-2xl lg:text-3xl"
           style={{ color: THEME.text }}
         >
           {header.heading}
@@ -65,7 +65,7 @@ export function CategoryToolsLanding({
           {header.subheading}
         </p>
         <div
-          className="mt-7 inline-flex flex-wrap gap-2.5 rounded-2xl px-3 py-3 sm:gap-3 sm:px-5 sm:py-4"
+          className="mt-4 inline-flex flex-wrap gap-2.5 rounded-2xl px-3 py-3 sm:gap-3 sm:px-5 sm:py-4"
           style={{ background: THEME.surface }}
         >
           <button
@@ -73,7 +73,7 @@ export function CategoryToolsLanding({
             onClick={() => {
               setCategoryId('all')
             }}
-            className={pillVariants({ active: categoryId === 'all' })}
+            className={`${pillVariants({ active: categoryId === 'all' })} px-3 py-1.5`}
           >
             All tools
           </button>
@@ -84,7 +84,7 @@ export function CategoryToolsLanding({
               onClick={() => {
                 setCategoryId(name)
               }}
-              className={pillVariants({ active: categoryId === name })}
+              className={`${pillVariants({ active: categoryId === name })} px-3 py-1.5`}
             >
               {name}
             </button>
@@ -92,7 +92,7 @@ export function CategoryToolsLanding({
         </div>
       </section>
 
-      <section className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3 xl:gap-8">
+      <section className="grid gap-4 sm:gap-3 md:grid-cols-2 xl:grid-cols-3 xl:gap-5">
         {visibleTools.map((tool) => (
           <button
             type="button"
@@ -136,7 +136,7 @@ export function CategoryToolsLanding({
               {tool.categoryName}
             </div>
             <h3
-              className="mt-3 text-xl leading-tight font-semibold sm:text-2xl"
+              className="mt-3 text-lg leading-tight font-semibold sm:text-xl"
               style={{ color: '#7A694A' }}
             >
               {tool.title}

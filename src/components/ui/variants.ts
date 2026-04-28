@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority'
 
-export const navLinkVariants = cva('border-b-2 pb-2 text-lg font-semibold transition-colors', {
+export const navLinkVariants = cva('border-b-2 pb-2 text-sm font-semibold transition-colors', {
   variants: {
     active: {
       true: 'border-brand-500 text-brand-500',
@@ -28,7 +28,7 @@ export const pillVariants = cva(
 )
 
 export const cardVariants = cva(
-  'rounded-2xl bg-white p-5 text-left transition-all duration-200 hover:-translate-y-1 hover:shadow-md',
+  'rounded-2xl bg-white py-3 px-4 text-left transition-all duration-200 hover:-translate-y-1 hover:shadow-md',
 )
 
 export const badgeVariants = cva(

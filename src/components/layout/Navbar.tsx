@@ -17,7 +17,7 @@ function Navbar() {
       }}
     >
       <PageContainer>
-        <div className="relative flex h-20 items-center gap-4">
+        <div className="relative flex h-16 items-center gap-4">
           <div className="shrink-0">
             <Link
               to="/financial-tools"

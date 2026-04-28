@@ -7,7 +7,7 @@
 >
 > **v3.2 note.** API routes live at `/api/*.ts` at repo ROOT (Vercel convention), not `src/api/`. `profiles` uses a single `id` column. PostHog session replay masks all inputs. Migrations go through `supabase/migrations/`, not the SQL Editor. 7 pre-launch gates (added cross-browser gate).
 
-**Last updated:** `2026-04-25`
+**Last updated:** `2026-04-27`
 
 ---
 
@@ -32,23 +32,29 @@ Freemium. Free tier with limited public tools and lookups. Pro Firm: C$79/month 
 ## SUCCESS METRICS
 
 ### North Star
+
 **Weekly Active Output Accounts** — number of firm accounts generating at least 3 substantive analyst outputs in a rolling 7-day period.
+
 - Current value: `0 (pre-launch)`
 - 30-day target: `[set after first users onboard]`
 - 90-day target: `[set after first users onboard]`
 
 ### Supporting metrics
+
 1. % of new accounts completing the activation event within 7 days
 2. Week-over-week Pro Firm subscriber growth (paid seats)
 3. 30-day retention: % of Pro Firm accounts still active one billing cycle after subscribing
 
 ### Activation event
+
 A new user is activated when they, **within 7 days of signup**, do all three:
+
 1. Create or open a project/file
 2. Generate one cost-of-capital or premium analysis output
 3. Export or copy a usable work-product artifact
 
 ### Churn leading indicator
+
 Pro Firm accounts that don't generate any output in a 14-day window are high-risk for churn the following billing cycle.
 
 ---
@@ -56,6 +62,7 @@ Pro Firm accounts that don't generate any output in a 14-day window are high-ris
 ## ARCHITECTURE
 
 ### Stack
+
 - **Frontend:** Vite + React + TypeScript (strict) + **Tailwind CSS v4** (CSS-first config via `@theme` in `src/index.css` — NO `tailwind.config.ts`)
 - **Tailwind plugin:** `@tailwindcss/vite` (no PostCSS config)
 - **Animations:** `tw-animate-css` (replaces `tailwindcss-animate`)
@@ -97,6 +104,7 @@ This is a Vercel convention. If you see a file in `src/api/`, it's wrong. Move i
 ### TypeScript configuration
 
 `tsconfig.json` enforces strict mode with:
+
 ```json
 {
   "compilerOptions": {
@@ -114,22 +122,26 @@ Never disable any of these without documenting why in the decisions log. Never u
 ### Key files
 
 **Configuration (split for maintainability):**
+
 - `src/config/site.ts` — brand identity, nav, per-route meta tags, social links
 - `src/config/content.ts` — all visible page copy (hero, features, testimonials, faq, etc.)
 - `src/config/pricing.ts` — plans, prices, Stripe price IDs
 - `src/config/env.ts` — env var validation; throws clear errors at startup if any required var is missing
 
 **Design system:**
+
 - `src/index.css` — **ALL ATOMIC DESIGN TOKENS** via Tailwind v4 `@theme` block. Colours, fonts, radius.
 - `src/components/ui/variants.ts` — **ALL COMPONENT TOKENS**. CVA configs for buttonVariants, cardVariants, badgeVariants, inputVariants, navTabVariants, linkVariants. Never style these inline.
 - `src/components/ui/index.ts` — barrel export of shadcn primitives
 
 **App entry:**
+
 - `vercel.json` — function timeouts + security headers (incl. CSP)
 - `src/App.tsx` — router setup. NO HelmetProvider (we use `usePageMeta` hook).
 - `src/main.tsx` — Sentry init (first import) + createRoot with React 19 error handlers
 
 **Library:**
+
 - `src/lib/supabase.ts` — Supabase client singleton (anon key from env.ts)
 - `src/lib/stripe.ts` — Stripe SDK + helpers
 - `src/lib/email.ts` — Resend wrapper, transactional email senders
@@ -139,9 +151,11 @@ Never disable any of these without documenting why in the decisions log. Never u
 - `src/lib/sentry.ts` — Sentry init module (imported first in main.tsx)
 
 **Database:**
+
 - `supabase/migrations/` — SQL migrations. All schema changes go through here, never the SQL Editor.
 
 **API routes (at repo root):**
+
 - `api/generate.ts` — AI generation endpoint (IP rate limit + auth + user rate limit + subscription gate + usage tracking)
 - `api/webhook.ts` — Stripe webhook handler (idempotent, signature-verified, raw body)
 - `api/create-checkout.ts` — Stripe Checkout Session creator (monthly/annual)
@@ -152,6 +166,7 @@ Never disable any of these without documenting why in the decisions log. Never u
 - `api/cron/onboarding.ts` — Vercel cron for Day 2 + Day 5 onboarding emails
 
 **Layout:**
+
 - `src/components/layout/AuthGuard.tsx` — wraps protected routes
 - `src/components/layout/PageMeta.tsx` — `usePageMeta` hook (direct `document.title` + meta tag updates)
 
@@ -159,14 +174,14 @@ Never disable any of these without documenting why in the decisions log. Never u
 
 > Fill in product-specific tables at Phase 6 checkpoint.
 
-| Table | RLS | Purpose |
-|---|---|---|
-| `profiles` | ✅ on — SELECT/UPDATE scoped to `auth.uid() = id`; single `id` column REFERENCES auth.users; auto-created via `handle_new_user` trigger | User profile + subscription status |
-| `ai_usage` | ✅ on — SELECT/INSERT scoped to `auth.uid() = user_id`, no UPDATE/DELETE | Per-request AI cost tracking |
-| `stripe_events` | ✅ on — no policies for `authenticated` role (service-role only) | Webhook idempotency |
-| `feedback` | ✅ on — INSERT public, SELECT service-role only | User feedback submissions |
-| `[projects / workspaces]` | `[TBD — Phase 6]` | User valuation projects/files |
-| `[outputs / analyses]` | `[TBD — Phase 6]` | Generated cost-of-capital and premium analysis outputs |
+| Table                     | RLS                                                                                                                                     | Purpose                                                |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| `profiles`                | ✅ on — SELECT/UPDATE scoped to `auth.uid() = id`; single `id` column REFERENCES auth.users; auto-created via `handle_new_user` trigger | User profile + subscription status                     |
+| `ai_usage`                | ✅ on — SELECT/INSERT scoped to `auth.uid() = user_id`, no UPDATE/DELETE                                                                | Per-request AI cost tracking                           |
+| `stripe_events`           | ✅ on — no policies for `authenticated` role (service-role only)                                                                        | Webhook idempotency                                    |
+| `feedback`                | ✅ on — INSERT public, SELECT service-role only                                                                                         | User feedback submissions                              |
+| `[projects / workspaces]` | `[TBD — Phase 6]`                                                                                                                       | User valuation projects/files                          |
+| `[outputs / analyses]`    | `[TBD — Phase 6]`                                                                                                                       | Generated cost-of-capital and premium analysis outputs |
 
 Every table has RLS enabled from creation. No exceptions. The `handle_new_user` trigger auto-creates a `profiles` row on every signup.
 
@@ -186,19 +201,21 @@ Every table has RLS enabled from creation. No exceptions. The `handle_new_user` 
 
 ### Tiers
 
-| Tier | Price | Rate limit | Key features |
-|---|---|---|---|
-| **Free** | C$0 | 5 AI outputs/month | Limited public tools + lookups; no export; no project saving |
-| **Pro Firm** | C$79/mo or C$790/yr | 50 AI outputs/month | Full cost-of-capital tools, reference datasets, export/copy, project saving |
-| **Team (future)** | ~C$139/mo | TBD | Multi-user firm seats, advanced features — not in v1 |
+| Tier              | Price               | Rate limit          | Key features                                                                |
+| ----------------- | ------------------- | ------------------- | --------------------------------------------------------------------------- |
+| **Free**          | C$0                 | 5 AI outputs/month  | Limited public tools + lookups; no export; no project saving                |
+| **Pro Firm**      | C$79/mo or C$790/yr | 50 AI outputs/month | Full cost-of-capital tools, reference datasets, export/copy, project saving |
+| **Team (future)** | ~C$139/mo           | TBD                 | Multi-user firm seats, advanced features — not in v1                        |
 
 ### Subscription status flow
+
 `free` → (upgrades) → `trialing` → `active` → `past_due` → `canceled`
 
 - `past_due`: show payment failed banner + Stripe portal link; gate premium features
 - `canceled`: redirect to /pricing with "Your subscription has ended" message
 
 ### Stripe price IDs
+
 > Fill in at Phase 7B after creating products in Stripe dashboard.
 
 - `STRIPE_PRICE_ID_PRO_MONTHLY` = `[TODO — Phase 7B]`
@@ -211,60 +228,63 @@ Every table has RLS enabled from creation. No exceptions. The `handle_new_user` 
 > Never put actual values here. This is the map of what exists and where it's used.
 > Actual values live in `.env` (local, gitignored) and Vercel environment variables (production).
 
-| Variable | Used in | When added |
-|---|---|---|
-| `VITE_SUPABASE_URL` | `src/config/env.ts`, `src/lib/supabase.ts` | Phase 6 |
-| `VITE_SUPABASE_ANON_KEY` | `src/config/env.ts`, `src/lib/supabase.ts` | Phase 6 |
-| `SUPABASE_SERVICE_ROLE_KEY` | API routes only (server-side) | Phase 6 |
-| `ANTHROPIC_API_KEY` | `api/generate.ts` | Phase 7A |
-| `UPSTASH_REDIS_REST_URL` | `src/lib/ratelimit.ts` | Phase 7A |
-| `UPSTASH_REDIS_REST_TOKEN` | `src/lib/ratelimit.ts` | Phase 7A |
-| `VITE_STRIPE_PUBLISHABLE_KEY` | `src/lib/stripe.ts` (client-side) | Phase 7B |
-| `STRIPE_SECRET_KEY` | API routes | Phase 7B |
-| `STRIPE_WEBHOOK_SECRET` | `api/webhook.ts` | Phase 7B |
-| `STRIPE_PRICE_ID_PRO_MONTHLY` | `api/create-checkout.ts` | Phase 7B |
-| `STRIPE_PRICE_ID_PRO_ANNUAL` | `api/create-checkout.ts` | Phase 7B |
-| `RESEND_API_KEY` | `src/lib/email.ts` | Phase 7C |
-| `EMAIL_FROM` | `src/lib/email.ts` | Phase 7C |
-| `VITE_SENTRY_DSN` | `src/lib/sentry.ts` | Phase 7D |
-| `SENTRY_AUTH_TOKEN` | `vite.config.ts` (source maps upload) | Phase 7D |
-| `VITE_POSTHOG_KEY` | `src/lib/analytics.ts` | Phase 7D |
-| `VITE_POSTHOG_HOST` | `src/lib/analytics.ts` | Phase 7D |
-| `VITE_APP_VERSION` | `src/lib/sentry.ts` | Phase 7D |
+| Variable                      | Used in                                    | When added |
+| ----------------------------- | ------------------------------------------ | ---------- |
+| `VITE_SUPABASE_URL`           | `src/config/env.ts`, `src/lib/supabase.ts` | Phase 6    |
+| `VITE_SUPABASE_ANON_KEY`      | `src/config/env.ts`, `src/lib/supabase.ts` | Phase 6    |
+| `SUPABASE_SERVICE_ROLE_KEY`   | API routes only (server-side)              | Phase 6    |
+| `ANTHROPIC_API_KEY`           | `api/generate.ts`                          | Phase 7A   |
+| `UPSTASH_REDIS_REST_URL`      | `src/lib/ratelimit.ts`                     | Phase 7A   |
+| `UPSTASH_REDIS_REST_TOKEN`    | `src/lib/ratelimit.ts`                     | Phase 7A   |
+| `VITE_STRIPE_PUBLISHABLE_KEY` | `src/lib/stripe.ts` (client-side)          | Phase 7B   |
+| `STRIPE_SECRET_KEY`           | API routes                                 | Phase 7B   |
+| `STRIPE_WEBHOOK_SECRET`       | `api/webhook.ts`                           | Phase 7B   |
+| `STRIPE_PRICE_ID_PRO_MONTHLY` | `api/create-checkout.ts`                   | Phase 7B   |
+| `STRIPE_PRICE_ID_PRO_ANNUAL`  | `api/create-checkout.ts`                   | Phase 7B   |
+| `RESEND_API_KEY`              | `src/lib/email.ts`                         | Phase 7C   |
+| `EMAIL_FROM`                  | `src/lib/email.ts`                         | Phase 7C   |
+| `VITE_SENTRY_DSN`             | `src/lib/sentry.ts`                        | Phase 7D   |
+| `SENTRY_AUTH_TOKEN`           | `vite.config.ts` (source maps upload)      | Phase 7D   |
+| `VITE_POSTHOG_KEY`            | `src/lib/analytics.ts`                     | Phase 7D   |
+| `VITE_POSTHOG_HOST`           | `src/lib/analytics.ts`                     | Phase 7D   |
+| `VITE_APP_VERSION`            | `src/lib/sentry.ts`                        | Phase 7D   |
 
 ---
 
 ## ROUTES MAP
 
 ### Public routes (no auth required)
-| Path | Page | Notes |
-|---|---|---|
-| `/` | `HomePage.tsx` | Composes all marketing sections |
-| `/pricing` | `PricingPage.tsx` | Shows Free vs Pro Firm tiers |
-| `/about` | `AboutPage.tsx` | Product story, Canadian focus, team |
-| `/contact` | `ContactPage.tsx` | Contact form → `api/feedback.ts` |
-| `/feedback` | `FeedbackPage.tsx` | Public feedback form |
-| `/changelog` | `ChangelogPage.tsx` | Reads `CHANGELOG.md` |
-| `/terms` | `TermsPage.tsx` | Terms of Service |
-| `/privacy` | `PrivacyPage.tsx` | Privacy Policy |
-| `/refund-policy` | `RefundPolicyPage.tsx` | Refund Policy |
-| `/acceptable-use` | `AcceptableUsePage.tsx` | Acceptable Use Policy |
+
+| Path              | Page                    | Notes                               |
+| ----------------- | ----------------------- | ----------------------------------- |
+| `/`               | `HomePage.tsx`          | Composes all marketing sections     |
+| `/pricing`        | `PricingPage.tsx`       | Shows Free vs Pro Firm tiers        |
+| `/about`          | `AboutPage.tsx`         | Product story, Canadian focus, team |
+| `/contact`        | `ContactPage.tsx`       | Contact form → `api/feedback.ts`    |
+| `/feedback`       | `FeedbackPage.tsx`      | Public feedback form                |
+| `/changelog`      | `ChangelogPage.tsx`     | Reads `CHANGELOG.md`                |
+| `/terms`          | `TermsPage.tsx`         | Terms of Service                    |
+| `/privacy`        | `PrivacyPage.tsx`       | Privacy Policy                      |
+| `/refund-policy`  | `RefundPolicyPage.tsx`  | Refund Policy                       |
+| `/acceptable-use` | `AcceptableUsePage.tsx` | Acceptable Use Policy               |
 
 ### Auth routes
-| Path | Page | Notes |
-|---|---|---|
-| `/login` | `LoginPage.tsx` | Email + Google OAuth |
-| `/signup` | `SignupPage.tsx` | Email + Google OAuth |
-| `/forgot-password` | `ForgotPasswordPage.tsx` | Sends reset email |
-| `/reset-password` | `ResetPasswordPage.tsx` | Handles reset token |
+
+| Path               | Page                     | Notes                |
+| ------------------ | ------------------------ | -------------------- |
+| `/login`           | `LoginPage.tsx`          | Email + Google OAuth |
+| `/signup`          | `SignupPage.tsx`         | Email + Google OAuth |
+| `/forgot-password` | `ForgotPasswordPage.tsx` | Sends reset email    |
+| `/reset-password`  | `ResetPasswordPage.tsx`  | Handles reset token  |
 
 ### App routes (AuthGuard — redirects to /login if not authenticated)
-| Path | Page | Notes |
-|---|---|---|
+
+| Path         | Page                | Notes                                    |
+| ------------ | ------------------- | ---------------------------------------- |
 | `/dashboard` | `DashboardPage.tsx` | Home screen after login; recent projects |
-| `/workspace` | `ToolPage.tsx` | Main AI-powered valuation workspace |
-| `/account` | `AccountPage.tsx` | Profile, password, account deletion |
-| `/billing` | `BillingPage.tsx` | Subscription status, upgrade, portal |
+| `/workspace` | `ToolPage.tsx`      | Main AI-powered valuation workspace      |
+| `/account`   | `AccountPage.tsx`   | Profile, password, account deletion      |
+| `/billing`   | `BillingPage.tsx`   | Subscription status, upgrade, portal     |
 
 ---
 
@@ -291,7 +311,7 @@ git push --tags
 All four policies are drafted in `docs/legal/` and rendered from markdown at these routes:
 
 - `/terms` — Terms of Service
-- `/privacy` — Privacy Policy  
+- `/privacy` — Privacy Policy
 - `/refund-policy` — Refund Policy
 - `/acceptable-use` — Acceptable Use Policy
 
@@ -331,6 +351,7 @@ All four policies are drafted in `docs/legal/` and rendered from markdown at the
 - **2026-04-25 — No dark mode in v1.** Reason: Adds ~30% more visual QA work, professional tools audience typically works in light mode. Revisit if users request it post-launch.
 - **2026-04-25 — Domain not yet registered.** Reason: Continuing build-first, register costkit.com before Phase 10 deploy. Monitor availability.
 - **2026-04-25 — Temporary "from" email: gaurav@applyout.com.** Reason: costkit.com not yet registered. Switch to hello@costkit.com after domain is acquired and Resend DNS is configured.
+- **2026-04-25 — Set html font-size to 14px as a deliberate design decision.** Reason: CostKit targets professional analyst users working in dense tool interfaces (comparable to Bloomberg, Refinitiv, and financial modeling software), where a 14px base is common. This intentionally deviates from FS Section 2.1 (consumer-web defaults) while preserving rem-based scaling and design-system predictability.
 - `[add more as decisions are made]`
 
 ---
@@ -429,18 +450,21 @@ When Claude Code / Cursor works on this project:
 This file gets updated at three explicit checkpoints during the build.
 
 **End of Phase 5 (static pages built):**
+
 - Confirm split config files (`site.ts` / `content.ts` / `pricing.ts`) match what was actually built
 - Fill in real brand colour values, radius style, font names in the Design system section above
 - Note any sections added or removed vs the scaffold prompt
 - Note any patterns established (e.g. "all sections wrap in `<Section>`, all use `<PageContainer>`")
 
 **End of Phase 6 (auth + DB):**
+
 - Fill in the Supabase tables with actual columns and RLS policies
 - Note auth flow architecture (redirect target after login, how AuthGuard works)
 - Confirm `.env` variable names match what `env.ts` expects
 - Add any product-specific tables created (projects, outputs, etc.)
 
 **End of Phase 7B (Stripe):**
+
 - Fill in Stripe price IDs (monthly and annual)
 - List all webhook events handled and what each updates in the DB
 - Document subscription status state machine edge cases found in testing
