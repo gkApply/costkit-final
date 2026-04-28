@@ -179,7 +179,7 @@ function LabeledField({
           value={value}
           step={step}
           onChange={onChange}
-          className="w-full bg-transparent text-lg font-medium outline-none md:text-lg"
+          className="w-full bg-transparent text-base font-medium outline-none md:text-base"
           style={{ color: THEME.text }}
         />
         {suffix ? (
@@ -229,7 +229,7 @@ function ReferenceSelect({
           onChange={(event) => {
             onChange(event.target.value)
           }}
-          className="w-full cursor-pointer bg-transparent pr-8 text-lg font-medium leading-tight outline-none md:text-lg"
+          className="w-full cursor-pointer bg-transparent pr-8 text-base font-medium leading-tight outline-none md:text-base"
           style={{ color: THEME.text }}
         >
           {options.map((option) => (
@@ -279,7 +279,7 @@ function DatePickerField({
         onClick={() => {
           setOpen((current) => !current)
         }}
-        className="mt-4 w-full rounded-xl border px-4 py-3 text-left text-base font-medium sm:rounded-2xl sm:px-5 sm:py-4 sm:text-lg md:text-lg"
+        className="mt-4 w-full rounded-xl border px-4 py-3 text-left text-base font-medium sm:rounded-2xl sm:px-5 sm:py-4 sm:text-base md:text-base"
         style={{ background: THEME.surfaceAlt, borderColor: 'transparent', color: THEME.text }}
       >
         <span>{dateLabel}</span>
@@ -598,7 +598,7 @@ export default function WaccCalculatorPage() {
                   >
                     Valuation Engine v2.4
                   </div>
-                  <h2 className="font-display text-2xl" style={{ color: THEME.primary }}>
+                  <h2 className="font-display text-lg" style={{ color: THEME.primary }}>
                     WACC Calculator
                   </h2>
                 </div>
@@ -639,7 +639,7 @@ export default function WaccCalculatorPage() {
                         Input Assumptions
                       </div>
                       <h2
-                        className="font-display text-3xl leading-tight"
+                        className="font-display text-xl leading-tight"
                         style={{ color: THEME.text }}
                       >
                         Setup the analysis context
@@ -690,7 +690,7 @@ export default function WaccCalculatorPage() {
                 {section === 'rf' && (
                   <div>
                     <h2
-                      className="font-display text-3xl leading-tight"
+                      className="font-display text-xl leading-tight"
                       style={{ color: THEME.text }}
                     >
                       Risk-free rate
@@ -726,7 +726,7 @@ export default function WaccCalculatorPage() {
                 {section === 'erp' && (
                   <div>
                     <h2
-                      className="font-display text-3xl leading-tight"
+                      className="font-display text-xl leading-tight"
                       style={{ color: THEME.text }}
                     >
                       Equity risk premium
@@ -762,7 +762,7 @@ export default function WaccCalculatorPage() {
                 {section === 'beta' && (
                   <div>
                     <h2
-                      className="font-display text-3xl leading-tight"
+                      className="font-display text-xl leading-tight"
                       style={{ color: THEME.text }}
                     >
                       Beta analysis
@@ -800,7 +800,7 @@ export default function WaccCalculatorPage() {
                 {section === 'size' && (
                   <div>
                     <h2
-                      className="font-display text-3xl leading-tight"
+                      className="font-display text-xl leading-tight"
                       style={{ color: THEME.text }}
                     >
                       Size premium
@@ -832,7 +832,7 @@ export default function WaccCalculatorPage() {
                 {section === 'csr' && (
                   <div>
                     <h2
-                      className="font-display text-3xl leading-tight"
+                      className="font-display text-xl leading-tight"
                       style={{ color: THEME.text }}
                     >
                       Company risk premium
@@ -856,7 +856,7 @@ export default function WaccCalculatorPage() {
                 {section === 'debt' && (
                   <div>
                     <h2
-                      className="font-display text-3xl leading-tight"
+                      className="font-display text-xl leading-tight"
                       style={{ color: THEME.text }}
                     >
                       Cost of debt
@@ -896,7 +896,7 @@ export default function WaccCalculatorPage() {
                 {section === 'structure' && (
                   <div>
                     <h2
-                      className="font-display text-3xl leading-tight"
+                      className="font-display text-xl leading-tight"
                       style={{ color: THEME.text }}
                     >
                       Capital structure
