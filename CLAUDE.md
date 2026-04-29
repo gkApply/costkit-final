@@ -354,6 +354,18 @@ All four policies are drafted in `docs/legal/` and rendered from markdown at the
 - **2026-04-25 — Set html font-size to 14px as a deliberate design decision.** Reason: CostKit targets professional analyst users working in dense tool interfaces (comparable to Bloomberg, Refinitiv, and financial modeling software), where a 14px base is common. This intentionally deviates from FS Section 2.1 (consumer-web defaults) while preserving rem-based scaling and design-system predictability.
 - `[add more as decisions are made]`
 
+- 2026-04-28 — Implemented Supabase Auth (Phase 6). Email/password + Google OAuth.
+  Supabase new key format: VITE_SUPABASE_PUBLISHABLE_KEY replaces VITE_SUPABASE_ANON_KEY.
+  SUPABASE_SECRET_KEY replaces SUPABASE_SERVICE_ROLE_KEY.
+  handle_new_user trigger auto-creates profiles row on every signup.
+  AuthGuard redirects unauthenticated users to /login?next=[path].
+  Email confirmation required before login. Google OAuth in Testing mode.
+  Default Supabase email has rate limits — switch to Resend in Phase 7C.
+
+- 2026-04-28 — AppLayout uses AuthGuard wrapping Outlet. All protected routes
+  (/dashboard, /account, /billing) are gated. Auth pages use AuthLayout which
+  includes Navbar and Footer.
+
 ---
 
 ## NOT BUILDING (v1 scope limit)
