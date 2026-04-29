@@ -1,11 +1,19 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import PageContainer from '@/components/layout/PageContainer'
 import { navLinkVariants } from '@/components/ui/variants'
+import { useAuthContext } from '@/contexts/AuthContext'
 import { site } from '@/config/site'
 import { cn } from '@/lib/utils'
 
 function Navbar() {
   const { pathname } = useLocation()
+  const navigate = useNavigate()
+  const { user, signOut } = useAuthContext()
+
+  const handleSignOut = async () => {
+    await signOut()
+    navigate('/')
+  }
 
   return (
     <header
@@ -52,18 +60,38 @@ function Navbar() {
 
           <div className="flex shrink-0 items-center gap-3">
             <div className="hidden items-center gap-3 md:flex">
-              <Link
-                to={site.nav.login.href}
-                className="inline-flex h-10 items-center whitespace-nowrap px-4 text-sm font-semibold text-neutral-800 transition-colors hover:text-neutral-900"
-              >
-                {site.nav.login.label}
-              </Link>
-              <Link
-                to={site.nav.cta.href}
-                className="inline-flex h-10 items-center whitespace-nowrap rounded-xl bg-brand-500 px-4 text-sm font-semibold text-white transition-colors hover:bg-brand-600"
-              >
-                {site.nav.cta.label}
-              </Link>
+              {user ? (
+                <>
+                  <Link
+                    to="/dashboard"
+                    className="inline-flex h-10 items-center whitespace-nowrap px-4 text-sm font-semibold text-neutral-800 transition-colors hover:text-neutral-900"
+                  >
+                    Dashboard
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => void handleSignOut()}
+                    className="inline-flex h-10 cursor-pointer items-center whitespace-nowrap rounded-xl bg-brand-500 px-4 text-sm font-semibold text-white transition-colors hover:bg-brand-600"
+                  >
+                    Sign out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to={site.nav.login.href}
+                    className="inline-flex h-10 items-center whitespace-nowrap px-4 text-sm font-semibold text-neutral-800 transition-colors hover:text-neutral-900"
+                  >
+                    {site.nav.login.label}
+                  </Link>
+                  <Link
+                    to={site.nav.cta.href}
+                    className="inline-flex h-10 items-center whitespace-nowrap rounded-xl bg-brand-500 px-4 text-sm font-semibold text-white transition-colors hover:bg-brand-600"
+                  >
+                    {site.nav.cta.label}
+                  </Link>
+                </>
+              )}
             </div>
 
             <button
