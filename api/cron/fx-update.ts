@@ -3,19 +3,14 @@ import { createClient } from '@supabase/supabase-js'
 
 const BOC_BASE = 'https://www.bankofcanada.ca/valet'
 
-// ── Supabase admin client (service role — bypasses RLS) ───────────────────────
-
 function getSupabaseAdmin() {
-  const url = process.env.SUPABASE_URL
+  const url = process.env.SUPABASE_URL ?? process.env.VITE_SUPABASE_URL
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY
-  if (!url || !key) throw new Error('Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY')
+  if (!url || !key) throw new Error('Missing Supabase env vars')
   return createClient(url, key)
 }
 
-// ── Handler ───────────────────────────────────────────────────────────────────
-
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // Verify the cron caller is legitimate
   const authHeader = req.headers.authorization
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
     return res.status(401).json({ error: 'Unauthorized' })
@@ -29,7 +24,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   let totalUpserted = 0
 
   try {
-    // ── 1. Load currency series map from DB ─────────────────────────────────
     const { data: currencies, error: currErr } = await supabase
       .from('fx_currencies')
       .select('currency_code, current_daily_series_id')
@@ -39,7 +33,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       throw new Error(`Could not load currencies: ${currErr?.message}`)
     }
 
-    // Map: series_id -> currency_code
     const seriesMap: Record<string, string> = {}
     for (const c of currencies) {
       if (c.current_daily_series_id) {
@@ -47,7 +40,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
     }
 
-    // ── 2. Fetch from Bank of Canada ─────────────────────────────────────────
     const url = `${BOC_BASE}/observations/group/FX_RATES_DAILY/json`
     const params = new URLSearchParams({ start_date: startDate, end_date: endDate })
     const bocRes = await fetch(`${url}?${params}`, {
@@ -62,7 +54,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       observations?: Array<Record<string, unknown>>
     }
 
-    // ── 3. Parse into rows ───────────────────────────────────────────────────
     const rows: {
       currency_code: string
       rate_date: string
@@ -93,7 +84,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
     }
 
-    // ── 4. Upsert in chunks of 500 ───────────────────────────────────────────
     const CHUNK = 500
     for (let i = 0; i < rows.length; i += CHUNK) {
       const { error: upsertErr } = await supabase
@@ -104,7 +94,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       totalUpserted += Math.min(CHUNK, rows.length - i)
     }
 
-    // ── 5. Log success ────────────────────────────────────────────────────────
     await supabase.from('fx_fetch_log').insert({
       fetch_type: 'weekly_update',
       status: 'success',
@@ -118,7 +107,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       dateRange: `${startDate} to ${endDate}`,
     })
   } catch (err) {
-    // Log failure
     await supabase
       .from('fx_fetch_log')
       .insert({
@@ -127,7 +115,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         error_message: String(err),
         completed_at: new Date().toISOString(),
       })
-      .catch(() => {}) // don't throw if log also fails
+      .then(() => {})
 
     return res.status(500).json({ error: String(err) })
   }
