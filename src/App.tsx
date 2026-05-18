@@ -56,6 +56,7 @@ import ExecutiveCompensationPage from '@/pages/tools/salary/ExecutiveCompensatio
 import ReasonableCompensationPage from '@/pages/tools/salary/ReasonableCompensationPage'
 import SalaryByIndustryPage from '@/pages/tools/salary/SalaryByIndustryPage'
 import SalaryByRolePage from '@/pages/tools/salary/SalaryByRolePage'
+import ExchangeRatePage from '@/pages/tools/macro/ExchangeRatePage'
 
 function App() {
   return (
@@ -86,6 +87,7 @@ function App() {
             <Route path="/macro" element={<MacroPage />} />
             <Route path="/macro/us-risk-free-rate" element={<UsRiskFreeRatePage />} />
             <Route path="/macro/canada-risk-free-rate" element={<CanadaRiskFreeRatePage />} />
+            <Route path="/macro/exchange-rate" element={<ExchangeRatePage />} />
             <Route path="/macro/country-ratings" element={<CountryRatingsPage />} />
             <Route path="/macro/cpi" element={<CpiPage />} />
             <Route path="/macro/gdp-growth" element={<GdpGrowthPage />} />

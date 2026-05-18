@@ -190,6 +190,7 @@ export const tools: Tool[] = [
     tier: 'free',
     icon: 'Landmark',
   },
+
   {
     id: 'canada-risk-free-rate',
     slug: 'canada-risk-free-rate',
@@ -200,6 +201,18 @@ export const tools: Tool[] = [
     href: '/macro/canada-risk-free-rate',
     tier: 'free',
     icon: 'Landmark',
+  },
+
+  {
+    id: 'exchange-rate',
+    slug: 'exchange-rate',
+    category: 'macro',
+    subcategory: 'Rates',
+    title: 'Exchange Rate Lookup',
+    description: 'Bank of Canada daily FX rates for 27 currencies.',
+    href: '/macro/exchange-rate',
+    tier: 'free',
+    icon: 'ArrowRightLeft',
   },
 
   // ── MACRO — Country & Economic ──────────────────────────────────────────

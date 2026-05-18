@@ -176,6 +176,20 @@ export const content = {
     auditTrailLabel: 'Source trail',
   },
 
+  // ─── EXCHANGE RATE TOOL ──────────────────────────────────────────────────
+
+  exchangeRateTool: {
+    heading: 'Exchange Rate Lookup',
+    description:
+      'Bank of Canada daily FX rates for 27 currencies expressed as Canadian dollars per one unit of foreign currency.',
+    sourceNote:
+      'Source: Bank of Canada Valet API. Pre-2017 data uses Bank of Canada legacy noon rates where available. Missing observations are shown as NA. Rates are indicative only — not transactional rates.',
+    basisOptions: [
+      { value: 'daily', label: 'Daily rate' },
+      { value: 'avg_30', label: '30-day average' },
+      { value: 'avg_90', label: '90-day average' },
+    ],
+  },
   // ─── FOOTER ─────────────────────────────────────────────────────────────
 
   footer: {
