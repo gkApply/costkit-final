@@ -1,13 +1,6 @@
 {
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
   "functions": {
-    "api/generate.ts": { "maxDuration": 60 },
-    "api/webhook.ts": { "maxDuration": 30 },
-    "api/create-checkout.ts": { "maxDuration": 30 },
-    "api/customer-portal.ts": { "maxDuration": 30 },
-    "api/delete-account.ts": { "maxDuration": 30 },
-    "api/feedback.ts": { "maxDuration": 15 },
-    "api/health.ts": { "maxDuration": 5 },
     "api/cron/fx-update.ts": { "maxDuration": 30 }
   },
   "crons": [
