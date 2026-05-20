@@ -481,3 +481,48 @@ This file gets updated at three explicit checkpoints during the build.
 - List all webhook events handled and what each updates in the DB
 - Document subscription status state machine edge cases found in testing
 - Note customer portal + checkout route paths
+
+## Phase 6 + FX Tool — Completed May 2026
+
+### Auth status
+
+- Supabase project: bdlzerxbneewlxpjkddq (Canada Central, Nano)
+- Google OAuth client created April 28 — NOT YET wired into Supabase Auth providers
+- Auth pages exist: Login, Signup, ForgotPassword, ResetPassword
+- AuthGuard, AuthContext, useAuth all built
+- Initial schema migration: 20260425000001_initial_schema.sql pushed
+
+### FX Rate Tool — completed
+
+- Migration: supabase/migrations/20260429000002_fx_rates.sql
+- Tables: fx_currencies (27 rows seeded), fx_rates_daily (~100k rows), fx_fetch_log
+- RPC function: get_fx_rate_table(p_currency_code, p_selected_date, p_basis)
+- Data: legacy noon rates 2010–2017, current daily rates 2017–present
+- Weekly cron: api/cron/fx-update.ts — runs Saturday 5 AM UTC
+- Tool page: src/pages/tools/macro/ExchangeRatePage.tsx
+- Route: /macro/exchange-rate
+- Tool card: added to tools.ts under macro/Rates
+
+### Env vars
+
+- VITE_SUPABASE_URL
+- VITE_SUPABASE_ANON_KEY
+- SUPABASE_SERVICE_ROLE_KEY
+- CRON_SECRET
+  All four set in Vercel Production environment.
+
+### Known issues / decisions
+
+- vercel.json functions block: only list api/cron/fx-update.ts — other Phase 7 routes
+  do not exist yet, adding them breaks the build
+- supabase.ts reads VITE_SUPABASE_ANON_KEY (not PUBLISHABLE_KEY)
+- ExchangeRatePage uses native <select> not shadcn Select — avoids z-index
+  conflict with navbar
+- CLAUDE.md last updated: May 2026 after Phase 6 + FX tool
+
+### Next: Phase 6 remaining
+
+- Wire Google OAuth into Supabase Auth → Providers → Google
+- Test full auth flow end to end
+- Account deletion route (api/delete-account.ts)
+- Security review per playbook Step 6.10
